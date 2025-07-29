@@ -14,7 +14,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # change in production
+    allow_origins=["https://short-url-ym.vercel.app"],  # change in production
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
