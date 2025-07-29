@@ -11,8 +11,3 @@ class URL(BaseModel):
     clicks: int = 0
     qr_code_path: Optional[str] = None
     custom_alias: Optional[str] = None
-
-class URLRequest(BaseModel):
-    original_url: HttpUrl
-    custom_alias: Optional[str] = None
-    expiration: Optional[str] = None
