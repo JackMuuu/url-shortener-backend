@@ -10,7 +10,12 @@ from datetime import datetime
 from app.ttl_setup import ensure_ttl_index
 from contextlib import asynccontextmanager
 
-app = FastAPI()
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    await ensure_ttl_index()  # TTL index setup
+    yield
+
+app = FastAPI(lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
@@ -19,11 +24,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    await ensure_ttl_index()  # TTL index setup
-    yield
 
 app.include_router(shortener.router)
 
